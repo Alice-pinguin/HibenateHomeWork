@@ -19,8 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Hibernate tutorial");
-
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         
 
