@@ -5,21 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -27,8 +16,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"company", "developer"})
-@ToString(exclude = "company")
 @Entity
 @Table(name = "project")
 public class Project implements Serializable, BaseEntity<Long> {
@@ -42,20 +29,20 @@ public class Project implements Serializable, BaseEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "cost")
+    @Column(name = "cost", nullable = false, length = 10)
     private Long cost;
 
-    @ManyToOne
+   @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "project_developer",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "developer_id"))
-    private Set<Developer> developer;
+    private Developer developer;
 
 }

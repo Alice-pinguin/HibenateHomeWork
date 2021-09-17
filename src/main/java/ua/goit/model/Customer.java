@@ -5,14 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
 
 @Data
 @Builder
@@ -30,10 +25,13 @@ public class Customer implements Serializable, BaseEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "industry")
-    private Long industry;
+    @Column(name = "industry", nullable = true, length = 30)
+    private String industry;
+
+    @OneToOne(mappedBy= "customer", cascade = CascadeType.ALL)
+    private Company company;
 
 }

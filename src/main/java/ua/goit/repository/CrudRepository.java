@@ -10,16 +10,11 @@ public interface CrudRepository<E extends BaseEntity<ID>, ID> {
     
     E save(E e); 
 
-    //E create (E e);
-
-    //E update (E e);
-    
     void deleteById(ID id);
 
     Optional<E> findById(ID id);
     
     List<E> findAll();
-    
     
     void close();
 

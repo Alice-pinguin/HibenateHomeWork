@@ -2,20 +2,13 @@ package ua.goit.model;
 
 import java.io.Serial;
 import java.util.Set;
-import javax.persistence.CascadeType;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -23,10 +16,10 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "project")
+@EqualsAndHashCode(exclude = "projects")
 @ToString(exclude = "projects")
 @Entity
-@Table(name = "company")
+@Table(name = "customer")
 
 public class Company implements BaseEntity<Long> {
 
@@ -38,13 +31,17 @@ public class Company implements BaseEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
     
-    @Column(name = "city")
+    @Column(name = "city", nullable = true, length = 25)
     private String city;
     
     @OneToMany(mappedBy="company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Project> projects;
-    
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 }

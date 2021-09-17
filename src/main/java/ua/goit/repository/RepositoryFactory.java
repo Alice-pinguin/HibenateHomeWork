@@ -12,7 +12,7 @@ public class RepositoryFactory {
     public synchronized static <E extends BaseEntity<ID>, R extends CrudRepository<E, ID>, ID> CrudRepository<E, ID> of(Class<E> modelClass) {
         final String modelName = modelClass.getName();
         if (!REPOSITORIES.containsKey(modelName)) {
-            REPOSITORIES.put(modelName, new CrudRepositoryImpl<>(modelClass));
+            REPOSITORIES.put(modelName, new CrudRepositoryHibernate(modelClass));
         }
         return REPOSITORIES.get(modelName);
     }

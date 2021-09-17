@@ -13,29 +13,18 @@ import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "projects")
-@ToString(exclude = "projects")
+//@EqualsAndHashCode(exclude = "[project, skill]")
+//@ToString(exclude = "[project, skill]")
 @Entity
-@Table(name = "developers")
+@Table(name = "developer")
 public class Developer implements BaseEntity<Long>, Serializable {
-
 
     @Serial
     private static final long serialVersionUID = 8740661570517301880L;
@@ -45,29 +34,31 @@ public class Developer implements BaseEntity<Long>, Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false, length = 2)
     private Integer age;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false, length = 6)
     private String gender;
     
-    @Column(name = "salary")
+    @Column(name = "salary", nullable = false, length = 10)
     private Long salary;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
     
-   @ManyToMany(mappedBy = "developer")
-  private Set<Project> projects;
+   @ManyToOne
+   @JoinColumn(name = "project_id")
+    private Project project;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "developer_skill",
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills;
+    private Skill skill;
+
 
 }

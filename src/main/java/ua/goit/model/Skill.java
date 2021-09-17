@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "skills")
+@Table(name = "skill")
 public class Skill implements Serializable, BaseEntity<Long> {
 
     @Serial
@@ -26,14 +25,15 @@ public class Skill implements Serializable, BaseEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "language")
+    @Column(name = "language", nullable = false, length = 15)
     private String language;
 
-    @Column(name = "level")
+    @Column(name = "level", nullable = false, length = 6)
     private String level;
 
-   @ManyToMany(mappedBy = "developer")
-   private Set<Developer> developers;
+    @ManyToOne
+    @JoinColumn(name = "developer_id")
+   private Developer developer;
 
 
 
