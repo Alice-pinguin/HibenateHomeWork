@@ -4,27 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Set;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import java.io.Serial;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
 
-import javax.persistence.*;
 
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@EqualsAndHashCode(exclude = "[project, skill]")
-//@ToString(exclude = "[project, skill]")
+@EqualsAndHashCode(exclude = "[project, skill]")
+@ToString(exclude = "[project, skill]")
 @Entity
 @Table(name = "developer")
-public class Developer implements BaseEntity<Long>, Serializable {
+public class Developer implements BaseEntity<Long> {
 
     @Serial
     private static final long serialVersionUID = 8740661570517301880L;
@@ -34,7 +38,7 @@ public class Developer implements BaseEntity<Long>, Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 25)
+    @Column(name = "name", nullable = false, length = 25, unique = true)
     private String name;
 
     @Column(name = "age", nullable = false, length = 2)

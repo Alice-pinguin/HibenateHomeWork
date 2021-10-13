@@ -2,15 +2,23 @@ package ua.goit.model;
 
 import java.io.Serial;
 import java.util.Set;
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 @Data
 @Builder
