@@ -2,12 +2,15 @@ package ua.goit;
 
 import org.hibernate.Session;
 
+import ua.goit.controller.ConsoleController;
 import ua.goit.model.Company;
 import ua.goit.model.Customer;
 import ua.goit.model.Developer;
 import ua.goit.model.Project;
 import ua.goit.model.Skill;
 import ua.goit.utils.HibernateSessionFactory;
+import ua.goit.view.Console;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,78 +45,10 @@ public class AddData {
                 .build ();
         session.save (cd);
 
-        Developer dev1 = Developer.builder ()
-                .name ("Tony Stark")
-                .age (30)
-                .gender ("men")
-                .salary (1_0000L)
-                .company (stark)
-                .build ();
-        developersStarks.add (dev1);
-        session.save (dev1);
-
-        Developer dev2 = Developer.builder ()
-                .name ("Patrice Desilets")
-                .age (26)
-                .gender ("men")
-                .salary (6_000L)
-                .company (ubisoft)
-                .build ();
-        developersUbisoft.add (dev2);
-        session.save (dev2);
-        Developer dev3 = Developer.builder ()
-                .name ("Ivan Nechay")
-                .age (32)
-                .gender ("men")
-                .salary (4_000L)
-                .company (ubisoft)
-                .build ();
-        developersStarks.add (dev3);
-        session.save (dev3);
-        Developer dev4 = Developer.builder ()
-                .name ("Iryna Zagora")
-                .age (25)
-                .gender ("women")
-                .salary (5_500L)
-                .company (ubisoft)
-                .build ();
-        developersStarks.add (dev4);
-        session.save (dev4);
-
-        Developer dev5 = Developer.builder ()
-                .name ("Pepper Potts")
-                .age (30)
-                .gender ("women")
-                .salary (6_500L)
-                .company (stark)
-                .build ();
-        developersStarks.add (dev5);
-        session.save (dev5);
-        Developer dev6 = Developer.builder ()
-                .name ("Robert Pits")
-                .age (36)
-                .gender ("men")
-                .salary (6_500L)
-                .company (cd)
-                .build ();
-        developersCd.add (dev6);
-        session.save (dev6);
-        Developer dev7 = Developer.builder ()
-                .name ("George Pet")
-                .age (21)
-                .gender ("men")
-                .salary (3_500L)
-                .company (cd)
-                .build ();
-        developersCd.add (dev7);
-        session.save (dev7);
-
         Project ironMan = Project.builder()
                 .name ("Iron Man")
                 .cost (1_000_000L)
                 .company (stark)
-                .developer (dev1)
-                .developer (dev5)
                 .build();
         projectStark.add (ironMan);
         session.save (ironMan);
@@ -122,15 +57,12 @@ public class AddData {
                 .name ("Assassin's Creed 2")
                 .cost (24_000_000L)
                 .company (ubisoft)
-                .developer (dev2)
-                .developer (dev3)
                 .build();
         session.save (assassins);
         Project heroes = Project.builder()
                 .name ("Heroes")
                 .cost (1_000_000L)
                 .company (ubisoft)
-                .developer (dev4)
                 .build();
         session.save (heroes);
         projectsUbisoft.add(assassins);
@@ -140,8 +72,6 @@ public class AddData {
                 .name ("Witcher")
                 .cost (12_000_000L)
                 .company (cd)
-                .developer (dev5)
-                .developer (dev6)
                 .build();
         session.save (witcher);
         projectsCd.add (witcher);
@@ -152,6 +82,79 @@ public class AddData {
                 .company (stark)
                 .build ();
         session.save (avengers);
+
+        Developer dev1 = Developer.builder ()
+                .name ("Tony Stark")
+                .age (30)
+                .gender ("men")
+                .salary (1_0000L)
+                .project (ironMan)
+                .company (stark)
+                .build ();
+        developersStarks.add (dev1);
+        session.save (dev1);
+
+        Developer dev2 = Developer.builder ()
+                .name ("Patrice Desilets")
+                .age (26)
+                .gender ("men")
+                .salary (6_000L)
+                .project (assassins)
+                .company (ubisoft)
+                .build ();
+        developersUbisoft.add (dev2);
+        session.save (dev2);
+        Developer dev3 = Developer.builder ()
+                .name ("Ivan Nechay")
+                .age (32)
+                .gender ("men")
+                .salary (4_000L)
+                .company (ubisoft)
+                .project (assassins)
+                .build ();
+        developersStarks.add (dev3);
+        session.save (dev3);
+        Developer dev4 = Developer.builder ()
+                .name ("Iryna Zagora")
+                .age (25)
+                .gender ("women")
+                .salary (5_500L)
+                .company (ubisoft)
+                .project (heroes)
+                .build ();
+        developersStarks.add (dev4);
+        session.save (dev4);
+
+        Developer dev5 = Developer.builder ()
+                .name ("Pepper Potts")
+                .age (30)
+                .gender ("women")
+                .salary (6_500L)
+                .project (ironMan)
+                .company (stark)
+                .build ();
+        developersStarks.add (dev5);
+        session.save (dev5);
+        Developer dev6 = Developer.builder ()
+                .name ("Robert Pits")
+                .age (36)
+                .gender ("men")
+                .salary (6_500L)
+                .project (witcher)
+                .company (cd)
+                .build ();
+        developersCd.add (dev6);
+        session.save (dev6);
+        Developer dev7 = Developer.builder ()
+                .name ("George Pet")
+                .age (21)
+                .gender ("men")
+                .salary (3_500L)
+                .project (witcher)
+                .company (cd)
+                .build ();
+        developersCd.add (dev7);
+        session.save (dev7);
 
         Customer playStation = Customer.builder()
                 .name ("Sony playstation")
@@ -175,7 +178,7 @@ public class AddData {
                 .build();
         session.save (dev1Skill);
         Skill dev2Skill = Skill.builder()
-                .language ("C#")
+                .language ("Java")
                 .level ("senior")
                 .developer (dev2)
                 .build();
@@ -212,5 +215,7 @@ public class AddData {
         session.save (dev7Skill);
         session.close();
 
+        ConsoleController consoleController = new ConsoleController (new Console ());
+        consoleController.process ();
     }
 }

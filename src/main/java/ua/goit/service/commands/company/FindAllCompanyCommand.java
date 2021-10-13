@@ -1,5 +1,6 @@
-package ua.goit.service.commands.developers;
+package ua.goit.service.commands.company;
 
+import ua.goit.model.Company;
 import ua.goit.model.Developer;
 import ua.goit.service.commands.Command;
 import ua.goit.service.commands.CrudCommand;
@@ -7,11 +8,10 @@ import ua.goit.view.View;
 
 import java.util.Map;
 
-public class FindAllDeveloperCommand extends CrudCommand {
+public class FindAllCompanyCommand extends CrudCommand {
 
-
-    public FindAllDeveloperCommand(View view, Map<String, Command> commands) {
-        super(view, commands, Developer.class);
+    public FindAllCompanyCommand(View view, Map<String, Command> commands) {
+        super(view, commands, Company.class);
     }
 
     @Override
@@ -21,11 +21,11 @@ public class FindAllDeveloperCommand extends CrudCommand {
 
     @Override
     public String commandName() {
-        return "find_all_developers";
+        return "find_all_company";
     }
 
     @Override
     public String description() {
-        return "list of all developers";
+        return "list all companies";
     }
 }

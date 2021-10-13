@@ -2,14 +2,14 @@ package ua.goit.repository;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.hibernate.query.criteria.JpaCriteriaQuery;
 import ua.goit.model.BaseEntity;
 import ua.goit.utils.HibernateSessionFactory;
-
 import java.io.Closeable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @AllArgsConstructor
@@ -19,13 +19,18 @@ public class CrudRepositoryHibernate <E extends BaseEntity<ID>, ID> implements C
 
     @Override
     public List<E> saveAll(Iterable<E> itrb) {
-
-        return null;
+        return StreamSupport.stream (itrb.spliterator (), false)
+                .map (entity->save (entity))
+                .collect(Collectors.toList());
     }
 
     @Override
     public E save(E e) {
-        return save (e);
+        Session session = createSession ();
+        ID id = (ID) session.save (e);
+        Optional<E> result = getById (id, session);
+        session.close ();
+        return result.get ();
     }
 
     @Override
