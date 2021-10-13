@@ -27,7 +27,7 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(exclude = "projects")
 @ToString(exclude = "projects")
 @Entity
-@Table(name = "customer")
+@Table(name = "company")
 
 public class Company implements BaseEntity<Long> {
 

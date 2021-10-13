@@ -46,7 +46,7 @@ public class Project implements BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "project_developer",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "developer_id"))
