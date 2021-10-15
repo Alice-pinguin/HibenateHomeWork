@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serial;
+import java.util.Set;
 import javax.persistence.*;
 
 
@@ -30,9 +31,12 @@ public class Skill implements BaseEntity<Long> {
     @Column(name = "level", nullable = false, length = 6)
     private String level;
 
-    @ManyToOne
-    @JoinColumn(name = "developer_id")
-   private Developer developer;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "developer_skill",
+            joinColumns = {@JoinColumn(name = "skill_id")},
+            inverseJoinColumns = {@JoinColumn(name = "developer_id")})
+    private Set<Developer> developers;
 
 
 

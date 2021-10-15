@@ -25,6 +25,6 @@ public class DeleteByIdDeveloperCommand extends CrudCommand {
 
     @Override
     public String description() {
-        return "удалить разработчика по ID";
+        return "delete developer by ID";
     }
 }

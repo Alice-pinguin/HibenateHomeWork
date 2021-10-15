@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serial;
+import java.util.Set;
 
 
 @Data
@@ -31,7 +31,7 @@ public class Customer implements BaseEntity<Long> {
     @Column(name = "industry", nullable = true, length = 30)
     private String industry;
 
-    @OneToOne(mappedBy= "customer")
-    private Company company;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Project> projects;
 
 }

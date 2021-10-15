@@ -1,28 +1,17 @@
 package ua.goit.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.io.Serial;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
-import javax.persistence.ManyToMany;
-import javax.persistence.JoinTable;
+import javax.persistence.*;
 
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = ("[developer, company]"))
 @Entity
 @Table(name = "project")
 public class Project implements BaseEntity<Long> {
@@ -42,14 +31,20 @@ public class Project implements BaseEntity<Long> {
     @Column(name = "cost", nullable = false, length = 10)
     private Long cost;
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany
-    @JoinTable(name = "project_developer",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    @ManyToOne
+    @JoinColumn(name = "customer_id", updatable = false)
+    private Customer customer;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "project_developer",
+            joinColumns = {@JoinColumn(name = "project_id")},
+            inverseJoinColumns = {@JoinColumn(name = "developer_id")})
     private Set<Developer> developers;
+
 
 }
